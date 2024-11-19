@@ -51,8 +51,8 @@ def getCurrentPlay(teams,currentLine,playStatus):
     #offense = int(teams[currentLine['Offense']])
     #defense = int(teams[currentLine['Defense']])
     timeRemaining = 60 * int(currentLine['Clock Minutes']) + int(currentLine['Clock Seconds'])
-    if playStatus == 1 : yardsRushing += int(currentLine['Yards Gained'])
-    else: yardsPassing += int(currentLine['Yards Gained'])
+    #if playStatus == 1 : yardsRushing += int(currentLine['Yards Gained'])
+    #else: yardsPassing += int(currentLine['Yards Gained'])
     currentPlay = [#offense, 
                 #defense, 
                 int(currentLine['Offense Score']),
@@ -68,18 +68,16 @@ def getCurrentPlay(teams,currentLine,playStatus):
     return currentPlay
 
 
-
+#TODO look into making this cross multiple games/files
 def getAllPlayData(teams):
     
     totalRows = 0
     validRows = 0
     playStatus = 0
-  
-    currentPlay = []
 
     #yardsPassing = 0 maybe revisit
     #yardsRushing = 0
-    
+
     playList = []
     statusList = []
     with open("2023_OSU_At_IND_OSU_Plays_Only.csv", mode='r', encoding='utf-8-sig') as file:
@@ -94,7 +92,8 @@ def getAllPlayData(teams):
                 
                 #"Scoring","Yards Gained" revisit scoring/Yards gained later
                 # if we're going to care about those values, we're likely going to need to put the database in play order per game
-                playList.append(currentPlay)
+                
+                playList.append(getCurrentPlay(teams, lines, playStatus))
                 statusList.append(playStatus)
     return playList,statusList
             
