@@ -33,4 +33,4 @@ acc = clf.score(X_test, y_test)
 print("Test Time: ", round(time()-stopWatch,5))
 
 #print(X.shape)
-print("Accurarcy: ", round(acc*100,4))
+print("Accuracy: ", round(acc*100,4))
