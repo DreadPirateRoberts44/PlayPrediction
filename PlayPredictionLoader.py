@@ -10,6 +10,7 @@ This is where we can:
 
 import csv
 import numpy as np
+from pathlib import Path
 
 """"
 This function returns the status for a play type
@@ -38,8 +39,10 @@ Returns a dictionary all teams, with the key being the name, value being the id
 (needed when if/when team ids are included in the model)
 """
 def getTeams():
+    data_folder = Path("Datasets/")
+    file_to_open = data_folder / "TeamIds.csv"
     teams = {}
-    with open("TeamIds.csv", mode='r', encoding='utf-8-sig') as file:
+    with open(file_to_open, mode='r', encoding='utf-8-sig') as file:
         teamCSV = csv.DictReader(file)
         for lines in teamCSV:
             teams[lines['School']] = lines["Id"]
@@ -71,6 +74,9 @@ def getCurrentPlay(teams,currentLine,playStatus):
 #TODO look into making this cross multiple games/files
 def getAllPlayData(teams):
     
+    data_folder = Path("Datasets/PlayData/")
+    file_to_open = data_folder / "2023_OSU_At_IND_OSU_Plays_Only.csv"
+
     totalRows = 0
     validRows = 0
     playStatus = 0
@@ -80,7 +86,7 @@ def getAllPlayData(teams):
 
     playList = []
     statusList = []
-    with open("2023_OSU_At_IND_OSU_Plays_Only.csv", mode='r', encoding='utf-8-sig') as file:
+    with open(file_to_open, mode='r', encoding='utf-8-sig') as file:
             playCSV = csv.DictReader(file)
             for lines in playCSV:
                 totalRows +=1 
